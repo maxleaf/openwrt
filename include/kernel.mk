@@ -44,7 +44,7 @@ else
     FILES_DIR ?= $(foreach dir,$(wildcard $(CURDIR)/files $(CURDIR)/files-$(KERNEL_PATCHVER)),"$(dir)")
   endif
   KERNEL_BUILD_DIR ?= $(BUILD_DIR)/linux-$(BOARD)$(if $(SUBTARGET),_$(SUBTARGET))
-  LINUX_DIR ?= $(KERNEL_BUILD_DIR)/linux-$(LINUX_VERSION)
+  LINUX_DIR ?= $(KERNEL_BUILD_DIR)/linux-$(LINUX_VERSION)$(KERNEL_NAME_SUFFIX)
   LINUX_UAPI_DIR=uapi/
   LINUX_VERMAGIC:=$(strip $(shell cat $(LINUX_DIR)/.vermagic 2>/dev/null))
   LINUX_VERMAGIC:=$(if $(LINUX_VERMAGIC),$(LINUX_VERMAGIC),unknown)
@@ -59,7 +59,7 @@ else
   ifneq (,$(findstring -rc,$(LINUX_VERSION)))
       LINUX_SOURCE:=linux-$(LINUX_VERSION).tar.gz
   else
-      LINUX_SOURCE:=linux-$(LINUX_VERSION).tar.xz
+      LINUX_SOURCE:=linux-$(LINUX_VERSION)$(KERNEL_NAME_SUFFIX).tar.xz
   endif
 
   ifneq (,$(findstring -rc,$(LINUX_VERSION)))
